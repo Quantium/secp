@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigating Your Career Path at EMA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: A thematic, tab-based single-page application. The structure is non-linear, allowing users to explore sections relevant to their current role or interests (e.g., IC Path, Leadership, QA/DevOps). This user-centric design avoids a long scroll and encourages exploration. Key interactions include a clickable career progression visualizer, toggles for comparing roles, and a filterable certification table. This structure was chosen to break down dense information into manageable, interactive chunks, enhancing usability and knowledge retention for a technical audience. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Dual-track career model -> Goal: Inform -> Viz: Bar Chart -> Interaction: Hover tooltips -> Justification: Visually simplifies the core concept of parallel IC/Manager tracks -> Library: Chart.js.
+        - Report Info: IC/QA/DevOps role progression -> Goal: Organize/Inform -> Viz: Interactive stepper/timeline -> Interaction: Click role to display details -> Justification: Breaks down extensive role descriptions into a user-driven, digestible format, preventing information overload. -> Method: Vanilla JS + Tailwind.
+        - Report Info: Tech Lead vs. EM comparison -> Goal: Compare -> Viz: Side-by-side content panels -> Interaction: Toggle buttons -> Justification: Provides a direct, clear comparison of two distinct leadership paths. -> Method: Vanilla JS + Tailwind.
+        - Report Info: Certification list -> Goal: Inform/Organize -> Viz: Interactive Table -> Interaction: Dropdown filter by career path -> Justification: Transforms a static list into a personalized tool, providing actionable guidance. -> Method: Vanilla JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-link.active {
+            color: #0ea5e9; /* sky-500 */
+            border-bottom-color: #0ea5e9; /* sky-500 */
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .tab-button.active {
+            background-color: #0ea5e9; /* sky-500 */
+            color: white;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="min-h-screen">
+        <header class="bg-white shadow-sm sticky top-0 z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-sky-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">E</div>
+                        <h1 class="text-xl font-bold text-slate-800">EMA Career Navigator</h1>
+                    </div>
+                    <nav class="hidden md:flex space-x-6">
+                        <a href="#foundation" class="nav-link text-slate-600 hover:text-sky-500 font-medium border-b-2 border-transparent pb-1">Foundation</a>
+                        <a href="#ic-path" class="nav-link text-slate-600 hover:text-sky-500 font-medium border-b-2 border-transparent pb-1">IC Path</a>
+                        <a href="#leadership" class="nav-link text-slate-600 hover:text-sky-500 font-medium border-b-2 border-transparent pb-1">Leadership & Architecture</a>
+                        <a href="#specialized" class="nav-link text-slate-600 hover:text-sky-500 font-medium border-b-2 border-transparent pb-1">QA & DevOps</a>
+                        <a href="#growth" class="nav-link text-slate-600 hover:text-sky-500 font-medium border-b-2 border-transparent pb-1">Growth Strategies</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+            <!-- Foundation Section -->
+            <section id="foundation" class="content-section">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">The Modern Engineering Career Ladder</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600">Our career paths are built on proven, industry-standard models. We embrace the dual-track system, offering parallel and equally valuable pathways for growth as an Individual Contributor (IC) or an Engineering Manager (EM).</p>
+                </div>
+
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md mb-12">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 text-center">Visualizing the Dual-Track System</h3>
+                    <p class="text-center text-slate-600 mb-6">This chart illustrates the progression and parallel nature of the IC and Management tracks. Advancement on both paths is marked by an increasing scope of influence and impact.</p>
+                    <div class="chart-container">
+                        <canvas id="dualTrackChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 text-center">How We Align with the Industry</h3>
+                     <p class="text-center text-slate-600 mb-6">To provide a clear, aspirational framework, our levels are benchmarked against the successful models of top technology companies like Google and Meta.</p>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-slate-200">
+                            <thead class="bg-slate-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">EMA Level</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Google Level (IC)</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Meta Level (IC)</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Representative Role</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Scope of Impact</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-slate-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">Junior</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">L3 SDE II</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">E3 Software Engineer I</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">Junior Developer</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">Individual tasks, learning, bug fixes</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">Mid-Level</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">L4 SDE III</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">E4 Software Engineer II</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">Mid-level Developer</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">Larger features, independent work</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">Senior</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">L5 Senior SDE</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">E5 Senior Software Engineer</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">Senior Developer</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">Team-wide projects, mentoring</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">Staff</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">L6 Staff SDE</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">E6 Staff Software Engineer</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">Staff Engineer</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">High-risk projects, team leadership</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">Principal</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">L7+ Senior Staff SDE</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">E7+ Senior Staff SDE</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">Principal Engineer</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">Multi-team, org-wide technical vision</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- IC Path Section -->
+            <section id="ic-path" class="content-section">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">The Individual Contributor Path</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600">This path is for engineers driven by technical mastery. Progression is measured by the growing complexity, scope, and impact of your technical contributions. Click on a role to explore its details.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="md:col-span-1">
+                        <div id="ic-role-selector" class="space-y-4">
+                            <!-- JS will populate this -->
+                        </div>
+                    </div>
+                    <div class="md:col-span-2 bg-white p-6 md:p-8 rounded-xl shadow-md min-h-[400px]">
+                        <h3 id="ic-role-title" class="text-2xl font-bold text-slate-800 mb-4"></h3>
+                        <div class="border-b border-slate-200 mb-4">
+                            <nav class="-mb-px flex space-x-6" id="ic-tab-buttons">
+                                <!-- JS will populate this -->
+                            </nav>
+                        </div>
+                        <div id="ic-role-content" class="text-slate-600 leading-relaxed">
+                            <!-- JS will populate this -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Leadership & Architecture Section -->
+            <section id="leadership" class="content-section">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">Leadership & Architecture</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600">Explore senior roles that shape our technology and teams, from hands-on technical leadership to strategic architectural vision.</p>
+                </div>
+                
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md mb-12">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 text-center">Tech Lead vs. Engineering Manager</h3>
+                    <p class="text-center text-slate-600 mb-6">These are two distinct but complementary leadership paths. A Tech Lead focuses on technology, while an Engineering Manager focuses on people and processes. Use the buttons to compare them.</p>
+                    <div class="flex justify-center space-x-4 mb-6">
+                        <button id="show-tl" class="leadership-toggle-btn px-4 py-2 rounded-md font-medium">Technical Lead</button>
+                        <button id="show-em" class="leadership-toggle-btn px-4 py-2 rounded-md font-medium">Engineering Manager</button>
+                    </div>
+                    <div id="leadership-content-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- JS will populate this -->
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 text-center">The Architect Track: Designing EMA's Future</h3>
+                    <p class="text-center text-slate-600 mb-6">The Architect is a pinnacle IC role, blending deep technical expertise with business acumen to guide our long-term technical strategy, especially as we modernize with AWS.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <h4 class="font-bold text-lg text-slate-700 mb-2">Core Responsibilities</h4>
+                            <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                <li>Design and guide complex, large-scale software systems.</li>
+                                <li>Ensure solutions are scalable, resilient, and secure in the cloud.</li>
+                                <li>Align technical decisions with EMA's long-term business goals.</li>
+                                <li>Mentor senior engineers and set technical standards.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg text-slate-700 mb-2">Key Skills for Success</h4>
+                            <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                <li><span class="font-semibold">Technical Mastery:</span> Deep expertise in cloud platforms (AWS), system design, and software patterns.</li>
+                                <li><span class="font-semibold">Business Acumen:</span> Understanding of business goals, ROI, and market factors to make strategic technical tradeoffs.</li>
+                                <li><span class="font-semibold">Leadership & Communication:</span> Ability to influence without authority, articulate complex ideas clearly, and lead technical teams.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Specialized Paths Section -->
+            <section id="specialized" class="content-section">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">Specialized Paths: QA & DevOps</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600">QA and DevOps are foundational, strategic disciplines vital to our success. Explore the dedicated career ladders for these mission-critical roles.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- QA Path -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4 text-center">The Quality Assurance Path</h3>
+                        <p class="text-center text-slate-600 mb-6">The QA role has evolved from a gatekeeper to a proactive strategist. This path focuses on ensuring quality from the very start of the development lifecycle.</p>
+                        <div class="space-y-4">
+                           <div class="bg-white p-6 rounded-xl shadow-md">
+                               <h4 class="font-bold text-lg text-sky-600">Junior QA Engineer</h4>
+                               <p class="text-slate-600 mt-2">Executes test cases, identifies bugs, and masters testing tools and procedures.</p>
+                           </div>
+                           <div class="bg-white p-6 rounded-xl shadow-md">
+                               <h4 class="font-bold text-lg text-sky-600">Mid-Level QA Engineer</h4>
+                               <p class="text-slate-600 mt-2">Independently designs test plans, implements automation scripts, and collaborates with developers.</p>
+                           </div>
+                           <div class="bg-white p-6 rounded-xl shadow-md">
+                               <h4 class="font-bold text-lg text-sky-600">Senior QA Engineer</h4>
+                               <p class="text-slate-600 mt-2">Leads project testing efforts, designs complex test strategies, and mentors junior team members.</p>
+                           </div>
+                           <div class="bg-white p-6 rounded-xl shadow-md">
+                               <h4 class="font-bold text-lg text-sky-600">QA Manager / Director</h4>
+                               <p class="text-slate-600 mt-2">Provides strategic direction for the entire quality department and manages the QA team and processes.</p>
+                           </div>
+                        </div>
+                    </div>
+                    <!-- DevOps Path -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4 text-center">The DevOps & SRE Path</h3>
+                        <p class="text-center text-slate-600 mb-6">This path applies software engineering principles to operations, building and running the large-scale, resilient systems that power our healthtech platform.</p>
+                         <div class="space-y-4">
+                           <div class="bg-white p-6 rounded-xl shadow-md">
+                               <h4 class="font-bold text-lg text-teal-600">DevOps vs. SRE</h4>
+                               <p class="text-slate-600 mt-2"><span class="font-semibold">DevOps</span> is a culture focused on automating and integrating development and IT operations to increase speed and quality. <span class="font-semibold">SRE (Site Reliability Engineering)</span> is a discipline that uses software engineering to ensure system reliability and availability.</p>
+                           </div>
+                           <div class="bg-white p-6 rounded-xl shadow-md">
+                               <h4 class="font-bold text-lg text-teal-600">DevOps Engineer</h4>
+                               <p class="text-slate-600 mt-2">Responsible for the end-to-end application lifecycle, building CI/CD pipelines, automating infrastructure, and fostering a "you build it, you run it" culture.</p>
+                           </div>
+                           <div class="bg-white p-6 rounded-xl shadow-md">
+                               <h4 class="font-bold text-lg text-teal-600">Site Reliability Engineer (SRE)</h4>
+                               <p class="text-slate-600 mt-2">Focuses on the stability and reliability of the production environment, developing software for operations, managing incidents, and setting service-level objectives (SLOs).</p>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Growth Strategies Section -->
+            <section id="growth" class="content-section">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">Mastering Your Progression</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600">Career growth is a partnership. We provide the map, but proactive effort in learning, mentorship, and adapting to new practices will fuel your journey.</p>
+                </div>
+                
+                <div class="mb-12">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 text-center">Practices that Drive Progress</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-white p-6 rounded-xl shadow-md">
+                            <h4 class="font-bold text-lg text-slate-700">CI/CD & Shift-Left Testing</h4>
+                            <p class="text-slate-600 mt-2">Automating builds, testing, and deployments frees you from manual tasks to focus on high-impact problem-solving. Shift-left testing makes quality a shared, proactive responsibility, not an afterthought.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md">
+                            <h4 class="font-bold text-lg text-slate-700">Cloud-Native Development</h4>
+                            <p class="text-slate-600 mt-2">Our move to AWS opens doors to new roles like Cloud Architect and Cloud-Native Engineer. Mastering containers, microservices, and Infrastructure as Code is key to future growth.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md">
+                            <h4 class="font-bold text-lg text-slate-700">The Power of Mentorship</h4>
+                            <p class="text-slate-600 mt-2">A mentor accelerates your learning, provides personalized guidance, and helps you navigate your career. Proactively seek out mentors and be open to their feedback and guidance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2 text-center">Continuous Learning & Certifications</h3>
+                    <p class="text-center text-slate-600 mb-6">Validate your skills and signal your readiness for new challenges. Use the filter to find certifications relevant to your desired career path.</p>
+                    <div class="flex justify-center mb-6">
+                        <select id="cert-filter" class="rounded-md border-slate-300 shadow-sm focus:border-sky-500 focus:ring-sky-500">
+                            <option value="all">All Career Paths</option>
+                            <option value="developer">Software Developer</option>
+                            <option value="architect">Cloud Architect</option>
+                            <option value="devops">DevOps/SRE</option>
+                        </select>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-slate-200">
+                            <thead class="bg-slate-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Certification</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Key Skills Validated</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cert-table-body" class="bg-white divide-y divide-slate-200">
+                                <!-- JS will populate this -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const navLinks = document.querySelectorAll('.nav-link');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    const icRolesData = {
+        junior: {
+            title: 'Junior Developer',
+            tabs: {
+                responsibilities: {
+                    title: 'Responsibilities',
+                    content: `
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Write and debug code under the guidance of senior engineers.</li>
+                            <li>Troubleshoot issues and fix minor bugs.</li>
+                            <li>Participate in code reviews and contribute to QA activities.</li>
+                            <li>Continuously learn the codebase and improve coding skills.</li>
+                        </ul>`
+                },
+                skills: {
+                    title: 'Key Skills',
+                    content: `
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Foundational knowledge of basic programming languages.</li>
+                            <li>Strong attention to detail.</li>
+                            <li>Ability to work effectively in a team and apply feedback.</li>
+                            <li>Eagerness to learn new concepts quickly.</li>
+                        </ul>`
+                },
+                progression: {
+                    title: 'Progression Indicators',
+                    content: `
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Consistent and successful completion of assigned tasks.</li>
+                            <li>Demonstrated ability to grasp new concepts.</li>
+                            <li>Active participation in team discussions and code reviews.</li>
+                            <li>Growing autonomy on small-scale tasks.</li>
+                        </ul>`
+                }
+            }
+        },
+        mid: {
+            title: 'Mid-Level Developer',
+            tabs: {
+                responsibilities: {
+                    title: 'Responsibilities',
+                    content: `
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Handle more challenging tasks with greater independence.</li>
+                            <li>Take ownership of specific components or features.</li>
+                            <li>Contribute to system design and architecture discussions.</li>
+                            <li>Begin to mentor and provide guidance to junior engineers.</li>
+                        </ul>`
+                },
+                skills: {
+                    title: 'Key Skills',
+                    content: `
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Deeper expertise in a specific area or technology stack.</li>
+                            <li>Ability to work independently on medium-sized features.</li>
+                            <li>Strong problem-solving and debugging skills.</li>
+                            <li>Initiative and proactive communication.</li>
+                        </ul>`
+                },
+                progression: {
+                    title: 'Progression Indicators',
+                    content: `
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Successful delivery of self-contained projects.</li>
+                            <li>Growing ability to act as a technical resource for the team.</li>
+                            <li>Effective mentorship of junior team members.</li>
+                            <li>Contributions that improve team processes or code quality.</li>
+                        </ul>`
+                }
+            }
+        },
+        senior: {
+            title: 'Senior Developer',
+            tabs: {
+                responsibilities: {
+                    title: 'Responsibilities',
+                    content: `
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Lead projects and act as a technical expert within the team.</li>
+                            <li>Mentor and provide on-the-job training for junior and mid-level engineers.</li>
+                            <li>Oversee the work of others and improve team efficiencies.</li>
+                            <li>Shift from task-based work to scope-based work: defining what needs to be done.</li>
+                        </ul>`
+                },
+                skills: {
+                    title: 'Key Skills',
+                    content: `
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Extensive technical knowledge and strong problem-solving abilities.</li>
+                            <li>Holistic perspective to align technical decisions with business objectives.</li>
+                            <li>Ability to multiply team output through mentorship and process improvement.</li>
+                            <li>Strong communication and leadership skills.</li>
+                        </ul>`
+                },
+                progression: {
+                    title: 'Progression Indicators',
+                    content: `
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Successfully leading and delivering complex team-wide projects.</li>
+                            <li>Elevating the performance and skills of the entire team.</li>
+                            <li>Making strategic technical decisions that benefit the organization.</li>
+                            <li>Becoming a go-to expert for a specific domain or technology.</li>
+                        </ul>`
+                }
+            }
+        },
+         staff: {
+            title: 'Staff/Principal Engineer',
+            tabs: {
+                responsibilities: {
+                    title: 'Responsibilities',
+                    content: `
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Lead high-risk, technically complex, and often ambiguous projects.</li>
+                            <li>Set the technical direction for a team or multiple teams.</li>
+                            <li>Shift from "problem-solver" to "problem-definer."</li>
+                            <li>Influence technical strategy across the organization.</li>
+                        </ul>`
+                },
+                skills: {
+                    title: 'Key Skills',
+                    content: `
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Deep, broad technical expertise and strategic thinking.</li>
+                            <li>Ability to navigate ambiguity and define clear technical paths forward.</li>
+                            <li>Exceptional ability to influence without direct authority.</li>
+                            <li>Strong mentorship skills for senior engineers.</li>
+                        </ul>`
+                },
+                progression: {
+                    title: 'Progression Indicators',
+                    content: `
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Defining and delivering on multi-year technical strategies.</li>
+                            <li>Solving the company's most challenging technical problems.</li>
+                            <li>Creating significant business impact through technical innovation.</li>
+                            <li>Being recognized as a top technical authority inside and outside the company.</li>
+                        </ul>`
+                }
+            }
+        }
+    };
+
+    const leadershipData = {
+        tl: {
+            title: 'Technical Lead',
+            icon: '&#128187;',
+            points: [
+                'The "coding expert" and "director" of a project.',
+                'Remains a hands-on developer, deeply involved in code.',
+                'Establishes the technical vision and sets coding standards.',
+                'Success is measured by the technical excellence of the project.'
+            ]
+        },
+        em: {
+            title: 'Engineering Manager',
+            icon: '&#128101;',
+            points: [
+                'The "producer" of the team, focused on people.',
+                'Maximizes team performance, culture, and satisfaction.',
+                'Handles budgets, resources, and stakeholder communication.',
+                'Success is measured by the cohesion and productivity of the team.'
+            ]
+        }
+    };
+
+    const certificationsData = [
+        { name: 'AWS Certified Developer - Associate', skills: 'Development, deployment, and debugging of cloud-based applications; CI/CD workflows.', paths: ['developer', 'devops'] },
+        { name: 'AWS Certified Solutions Architect - Associate', skills: 'Design of scalable, fault-tolerant, and highly available systems on AWS.', paths: ['architect', 'devops'] },
+        { name: 'Docker Certified Associate (DCA)', skills: 'Building, running, and orchestrating containerized applications with Docker.', paths: ['devops', 'developer'] },
+        { name: 'Google Cloud Professional Cloud Architect', skills: 'Design and management of robust, secure, and scalable solutions on GCP; multi-cloud architecture.', paths: ['architect'] }
+    ];
+
+    function showSection(hash) {
+        contentSections.forEach(section => {
+            if ('#' + section.id === hash) {
+                section.classList.add('active');
+            } else {
+                section.classList.remove('active');
+            }
+        });
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === hash) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const hash = e.target.getAttribute('href');
+            history.pushState(null, null, hash);
+            showSection(hash);
+        });
+    });
+
+    const initialHash = window.location.hash || '#foundation';
+    showSection(initialHash);
+
+
+    function initDualTrackChart() {
+        const ctx = document.getElementById('dualTrackChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5+'],
+                datasets: [
+                    {
+                        label: 'Individual Contributor (IC)',
+                        data: [1, 2, 3, 4, 5],
+                        backgroundColor: 'rgba(14, 165, 233, 0.6)', // sky-500
+                        borderColor: 'rgba(14, 165, 233, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Engineering Manager (EM)',
+                        data: [null, null, 3, 4, 5],
+                        backgroundColor: 'rgba(20, 184, 166, 0.6)', // teal-500
+                        borderColor: 'rgba(20, 184, 166, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                const level = context[0].label;
+                                if (level === 'Level 1') return 'Junior';
+                                if (level === 'Level 2') return 'Mid-Level';
+                                if (level === 'Level 3') return 'Senior / EM I';
+                                if (level === 'Level 4') return 'Staff / EM II';
+                                if (level === 'Level 5+') return 'Principal / Director';
+                                return level;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                        title: {
+                            display: true,
+                            text: 'Career Progression'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Seniority Level'
+                        },
+                        ticks: {
+                            stepSize: 1,
+                            callback: function(value) {
+                                if (value > 0) return 'L' + (value + 2);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    function initICPath() {
+        const selector = document.getElementById('ic-role-selector');
+        const titleEl = document.getElementById('ic-role-title');
+        const tabButtonsEl = document.getElementById('ic-tab-buttons');
+        const contentEl = document.getElementById('ic-role-content');
+
+        Object.keys(icRolesData).forEach((key, index) => {
+            const role = icRolesData[key];
+            const button = document.createElement('button');
+            button.dataset.role = key;
+            button.className = `ic-role-btn w-full text-left p-4 rounded-lg transition-all ${index === 0 ? 'bg-sky-500 text-white shadow' : 'bg-white hover:bg-slate-100'}`;
+            button.innerHTML = `<span class="font-bold">${role.title}</span>`;
+            selector.appendChild(button);
+        });
+
+        function renderICRole(roleKey) {
+            const role = icRolesData[roleKey];
+            titleEl.textContent = role.title;
+
+            document.querySelectorAll('.ic-role-btn').forEach(btn => {
+                if (btn.dataset.role === roleKey) {
+                    btn.classList.add('bg-sky-500', 'text-white', 'shadow');
+                    btn.classList.remove('bg-white', 'hover:bg-slate-100');
+                } else {
+                    btn.classList.remove('bg-sky-500', 'text-white', 'shadow');
+                    btn.classList.add('bg-white', 'hover:bg-slate-100');
+                }
+            });
+
+            renderICTabs(roleKey, Object.keys(role.tabs)[0]);
+        }
+
+        function renderICTabs(roleKey, activeTabKey) {
+            const role = icRolesData[roleKey];
+            tabButtonsEl.innerHTML = '';
+            Object.keys(role.tabs).forEach(tabKey => {
+                const tab = role.tabs[tabKey];
+                const button = document.createElement('button');
+                button.dataset.role = roleKey;
+                button.dataset.tab = tabKey;
+                button.className = `ic-tab-btn py-2 px-1 border-b-2 font-medium text-sm ${tabKey === activeTabKey ? 'border-sky-500 text-sky-600' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'}`;
+                button.textContent = tab.title;
+                tabButtonsEl.appendChild(button);
+            });
+            contentEl.innerHTML = role.tabs[activeTabKey].content;
+        }
+
+        selector.addEventListener('click', e => {
+            const button = e.target.closest('.ic-role-btn');
+            if (button) {
+                renderICRole(button.dataset.role);
+            }
+        });
+
+        tabButtonsEl.addEventListener('click', e => {
+            const button = e.target.closest('.ic-tab-btn');
+            if (button) {
+                renderICTabs(button.dataset.role, button.dataset.tab);
+            }
+        });
+        
+        renderICRole('junior');
+    }
+    
+    function initLeadership() {
+        const container = document.getElementById('leadership-content-container');
+        const tlBtn = document.getElementById('show-tl');
+        const emBtn = document.getElementById('show-em');
+
+        function renderLeadershipContent(active) {
+            container.innerHTML = `
+                <div class="p-6 border-2 ${active === 'tl' ? 'border-sky-500 bg-sky-50' : 'border-transparent'} rounded-lg transition-all">
+                    <h4 class="text-xl font-bold text-slate-800 mb-2">${leadershipData.tl.icon} ${leadershipData.tl.title}</h4>
+                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                        ${leadershipData.tl.points.map(p => `<li>${p}</li>`).join('')}
+                    </ul>
+                </div>
+                <div class="p-6 border-2 ${active === 'em' ? 'border-teal-500 bg-teal-50' : 'border-transparent'} rounded-lg transition-all">
+                    <h4 class="text-xl font-bold text-slate-800 mb-2">${leadershipData.em.icon} ${leadershipData.em.title}</h4>
+                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                        ${leadershipData.em.points.map(p => `<li>${p}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+
+            if (active === 'tl') {
+                tlBtn.classList.add('bg-sky-500', 'text-white');
+                tlBtn.classList.remove('bg-slate-200', 'text-slate-700');
+                emBtn.classList.add('bg-slate-200', 'text-slate-700');
+                emBtn.classList.remove('bg-teal-500', 'text-white');
+            } else {
+                emBtn.classList.add('bg-teal-500', 'text-white');
+                emBtn.classList.remove('bg-slate-200', 'text-slate-700');
+                tlBtn.classList.add('bg-slate-200', 'text-slate-700');
+                tlBtn.classList.remove('bg-sky-500', 'text-white');
+            }
+        }
+
+        tlBtn.addEventListener('click', () => renderLeadershipContent('tl'));
+        emBtn.addEventListener('click', () => renderLeadershipContent('em'));
+
+        renderLeadershipContent('tl');
+    }
+
+    function initCertifications() {
+        const filter = document.getElementById('cert-filter');
+        const tableBody = document.getElementById('cert-table-body');
+
+        function renderCerts(path) {
+            tableBody.innerHTML = '';
+            const filteredCerts = path === 'all' 
+                ? certificationsData 
+                : certificationsData.filter(cert => cert.paths.includes(path));
+
+            if (filteredCerts.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="2" class="px-6 py-4 text-center text-slate-500">No certifications match this filter.</td></tr>';
+                return;
+            }
+
+            filteredCerts.forEach(cert => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">${cert.name}</td>
+                    <td class="px-6 py-4 whitespace-normal text-sm text-slate-500">${cert.skills}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        filter.addEventListener('change', (e) => {
+            renderCerts(e.target.value);
+        });
+
+        renderCerts('all');
+    }
+
+    initDualTrackChart();
+    initICPath();
+    initLeadership();
+    initCertifications();
+});
+</script>
+</body>
+</html>
