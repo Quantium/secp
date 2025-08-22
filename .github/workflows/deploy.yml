@@ -1,0 +1,71 @@
+name: Deploy to S3
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+env:
+  BUCKET_NAME: software-engineer-career-path.quantium.com.mx
+  AWS_REGION: us-east-1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+        
+    - name: Deploy to S3
+      run: |
+        # Check if bucket exists and is accessible
+        echo "🔍 Checking bucket access..."
+        if ! aws s3 ls s3://${{ env.BUCKET_NAME }} > /dev/null 2>&1; then
+          echo "❌ Bucket ${{ env.BUCKET_NAME }} does not exist or is not accessible"
+          exit 1
+        fi
+        
+        # Sync all files to S3 bucket
+        echo "📤 Syncing files to S3..."
+        aws s3 sync . s3://${{ env.BUCKET_NAME }} \
+          --exclude ".git/*" \
+          --exclude ".github/*" \
+          --exclude "README.md" \
+          --exclude "CONTRIBUTING.md" \
+          --exclude "docs/*" \
+          --exclude "package.json" \
+          --exclude "LICENSE" \
+          --delete \
+          --cache-control "max-age=31536000,public"
+          
+        # Set proper content types for HTML files
+        echo "🎨 Setting content types..."
+        aws s3 cp index.html s3://${{ env.BUCKET_NAME }}/index.html \
+          --content-type "text/html" \
+          --cache-control "max-age=31536000,public"
+          
+    - name: Verify deployment
+      run: |
+        echo "✅ Deployment completed successfully to S3 bucket: ${{ env.BUCKET_NAME }}"
+        echo "🌐 Website should be accessible at: http://${{ env.BUCKET_NAME }}.s3-website-${{ env.AWS_REGION }}.amazonaws.com"
+        
+        # List deployed files
+        echo "📁 Deployed files:"
+        aws s3 ls s3://${{ env.BUCKET_NAME }} --recursive --human-readable
+        
+        # Verify index.html is accessible
+        echo "🔍 Verifying index.html..."
+        if aws s3api head-object --bucket ${{ env.BUCKET_NAME }} --key index.html > /dev/null 2>&1; then
+          echo "✅ index.html successfully deployed"
+        else
+          echo "❌ index.html not found in bucket"
+          exit 1
+        fi

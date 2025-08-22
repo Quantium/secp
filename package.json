@@ -1,0 +1,49 @@
+{
+  "name": "ema-career-navigator",
+  "version": "1.0.0",
+  "description": "A comprehensive, interactive web application that helps software engineers understand and navigate their career progression at EMA",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "start:node": "npx serve .",
+    "start:php": "php -S localhost:8000",
+    "test": "echo \"No tests specified yet\" && exit 0",
+    "lint": "echo \"No linter configured yet\" && exit 0",
+    "build": "echo \"No build process needed - static site\" && exit 0",
+    "deploy": "echo \"Deploy to GitHub Pages via GitHub Actions\" && exit 0"
+  },
+  "keywords": [
+    "career",
+    "software-engineering",
+    "career-development",
+    "career-path",
+    "engineering-management",
+    "individual-contributor",
+    "career-ladder",
+    "professional-development",
+    "tech-careers",
+    "leadership-development"
+  ],
+  "author": "EMA Engineering Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/ema-career-navigator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/ema-career-navigator/issues"
+  },
+  "homepage": "https://yourusername.github.io/ema-career-navigator/",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "devDependencies": {},
+  "dependencies": {},
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}
