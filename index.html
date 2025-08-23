@@ -93,6 +93,18 @@
              text-wrap: balance;
         }
         
+        /* Card Background Styles */
+        .card-bg {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+        
+        .dark .card-bg {
+            background-color: #1f2937; /* gray-800 */
+        }
+        
         /* Fixed Footer Styles */
         .fixed-footer {
             position: fixed;
@@ -217,11 +229,11 @@
                     <p class="mt-2 text-slate-600 max-w-2xl mx-auto text-balance">Las empresas tecnológicas modernas estructuran las carreras en dos caminos paralelos: la vía del **Individual Contributor (IC)** para la maestría técnica, y la vía del **Engineering Manager (EM)** para el liderazgo de personas. Esto asegura que la experiencia técnica profunda sea valorada y recompensada a la par de la gestión, ofreciendo caminos para un crecimiento significativo en ambos roles, como se observa en marcos de ingeniería globales.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
+                    <div class="card-bg border-l-4 border-blue-500">
                         <h3 class="text-2xl font-bold mb-3 flow-node-title">💻 Individual Contributor (IC)</h3>
                         <p class="flow-node-text">Este camino es para ingenieros que desean mantenerse prácticos y resolver desafíos técnicos complejos. El crecimiento se mide por el creciente alcance e impacto de sus contribuciones técnicas, desde una sola característica hasta sistemas a nivel de toda la empresa.</p>
                     </div>
-                    <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-teal-500">
+                    <div class="card-bg border-l-4 border-teal-500">
                         <h3 class="text-2xl font-bold mb-3" style="color: #0D9488;">🤝 Engineering Manager (EM)</h3>
                         <p class="flow-node-text">Este camino es para quienes se destacan en el liderazgo de personas y procesos. El éxito se mide por el rendimiento, el crecimiento y la alineación del equipo con los objetivos comerciales. El enfoque cambia de escribir código a construir y habilitar equipos de alto rendimiento.</p>
                     </div>
@@ -246,17 +258,17 @@
 
                 <div class="relative">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-                        <div class="bg-white rounded-lg shadow-md p-6 text-center flow-node">
+                        <div class="card-bg text-center flow-node">
                             <h3 class="text-xl font-bold flow-node-title">Nivel de Entrada</h3>
                             <p class="text-sm flow-node-text">(SWE II, SDE I)</p>
                             <p class="mt-2 text-sm flow-node-text">0-2 años de experiencia. Se enfoca en escribir código limpio, depuración y aprender procesos establecidos bajo guía.</p>
                         </div>
-                        <div class="bg-white rounded-lg shadow-md p-6 text-center flow-node md:mt-16">
+                        <div class="card-bg text-center flow-node md:mt-16">
                              <h3 class="text-xl font-bold flow-node-title">Ingeniero Senior</h3>
                             <p class="text-sm flow-node-text">(Senior SWE, SDE III)</p>
                             <p class="mt-2 text-sm flow-node-text">5-8+ años. El "nivel de carrera". Lidera proyectos complejos, toma decisiones técnicas críticas y mentoriza a otros.</p>
                         </div>
-                        <div class="bg-white rounded-lg shadow-md p-6 text-center flow-node md:mt-32">
+                        <div class="card-bg text-center flow-node md:mt-32">
                              <h3 class="text-xl font-bold flow-node-title">Ingeniero Staff-Plus</h3>
                             <p class="text-sm flow-node-text">(Staff, Principal, Distinguido)</p>
                             <p class="mt-2 text-sm flow-node-text">10+ años. Un tecnólogo estratégico cuya influencia abarca múltiples equipos, organizaciones enteras o toda la empresa.</p>
@@ -264,14 +276,14 @@
                     </div>
                 </div>
                  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-                    <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="card-bg">
                         <h3 class="text-xl font-bold text-center mb-4 section-title">Scope of IC Impact by Level</h3>
                         <div class="chart-container h-80 md:h-96">
                             <canvas id="icScopeChart"></canvas>
                         </div>
                          <p class="text-center mt-4 text-sm text-slate-500 text-balance">Este gráfico ilustra cómo la influencia de un IC crece exponencialmente, desde tareas individuales hasta la configuración de la estrategia técnica a nivel de toda la empresa.</p>
                     </div>
-                    <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="card-bg">
                         <h3 class="text-xl font-bold text-center mb-4 section-title">Growth Potential in IC Path</h3>
                         <div class="chart-container h-80 md:h-96">
                             <canvas id="icCompensationChart"></canvas>
@@ -287,20 +299,20 @@
                     <p class="mt-2 text-slate-600 max-w-2xl mx-auto text-balance">Una transición de construir software a construir equipos. El enfoque está en escalar el impacto a través de personas, procesos y estrategia organizacional.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="card-bg">
                          <h3 class="text-xl font-bold flow-node-title mb-2">Engineering Manager</h3>
                          <p class="flow-node-text">Gestiona un solo equipo (5-10 ingenieros). Responsable de la entrega de proyectos, contratación, mentoría y creación de un ambiente de equipo saludable.</p>
                     </div>
-                     <div class="bg-white rounded-lg shadow-md p-6">
+                     <div class="card-bg">
                          <h3 class="text-xl font-bold flow-node-title mb-2">Director of Engineering</h3>
                          <p class="flow-node-text">Gestiona múltiples equipos y otros gerentes. Establece la estrategia a nivel de departamento, supervisa presupuestos e impulsa iniciativas más grandes.</p>
                     </div>
-                     <div class="bg-white rounded-lg shadow-md p-6 md:col-span-2 lg:col-span-1">
+                     <div class="card-bg md:col-span-2 lg:col-span-1">
                          <h3 class="text-xl font-bold flow-node-title mb-2">Senior Leadership (VP/CTO)</h3>
                          <p class="flow-node-text">Lidera organizaciones de ingeniería completas. Responsable de la visión tecnológica a largo plazo, la alineación comercial y la cultura de la empresa.</p>
                     </div>
                 </div>
-                <div class="bg-white rounded-lg shadow-md p-6 mt-12">
+                <div class="card-bg mt-12">
                      <h3 class="text-xl font-bold text-center mb-4 section-title">The Manager Mindset Shift</h3>
                      <p class="text-center text-slate-600 mb-6 max-w-2xl mx-auto text-balance">La transición más crítica es medir el éxito no por las contribuciones de código personales, sino por los logros colectivos y el crecimiento del equipo.</p>
                      <div class="chart-container mx-auto" style="height: 320px;">
@@ -315,7 +327,7 @@
                     <h2 class="text-3xl font-bold section-title">Eligiendo Tu Camino</h2>
                     <p class="mt-2 text-slate-600 max-w-2xl mx-auto text-balance">La decisión entre las vías de IC y EM es personal y depende de tus motivaciones, habilidades y aspiraciones profesionales a largo plazo. Ambas vías ofrecen oportunidades para un impacto y una recompensa inmensos.</p>
                 </div>
-                <div class="bg-white rounded-lg shadow-md p-8">
+                <div class="card-bg p-8">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
                             <h4 class="text-lg font-semibold flow-node-title mb-2">Follow the IC Path if...</h4>
@@ -336,7 +348,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="mt-8 pt-6 border-t border-slate-200 text-center">
+                    <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700 text-center">
                          <p class="text-slate-600 text-balance">En última instancia, el mejor camino es el que se alinea con tus pasiones. La carrera profesional moderna te permite elegir una trayectoria que mejor se adapte a tus fortalezas, en lugar de forzar una progresión única y lineal, **reconociendo que puedes alcanzar un alto potencial de ingresos sin necesidad de gestionar personas.**</p>
                     </div>
                 </div>
