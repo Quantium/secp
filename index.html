@@ -606,66 +606,64 @@
             
             // Manager Mindset Chart
             const managerMindsetCtx = document.getElementById('managerMindsetChart').getContext('2d');
+            const managerMindsetData = {
+                labels: ['Profundidad Técnica', 'Ejecución de Proyectos', 'Mentoría', 'Liderazgo de Equipo', 'Estrategia Organizacional', 'Comunicación'],
+                datasets: [{
+                    label: 'Contribuyente Individual',
+                    data: [9, 8, 6, 3, 2, 7],
+                    fill: true,
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)', // Use light blue for IC
+                    borderColor: activePalette.primary,
+                    pointBackgroundColor: activePalette.primary,
+                }, {
+                    label: 'Gerente de Ingeniería',
+                    data: [5, 7, 9, 9, 8, 9],
+                    fill: true,
+                    backgroundColor: 'rgba(20, 184, 166, 0.2)', // Use light teal for EM
+                    borderColor: activePalette.teal,
+                    pointBackgroundColor: activePalette.teal,
+                }]
+            };
             const managerMindsetChart = new Chart(managerMindsetCtx, {
                 type: 'radar',
-                data: {
-                    labels: ['Technical Skills', 'Leadership', 'Strategy', 'Communication', 'Process Management', 'Team Building'],
-                    datasets: [
-                        {
-                            label: 'Individual Contributor',
-                            data: [90, 30, 40, 60, 20, 25],
-                            borderColor: activePalette.primary,
-                            backgroundColor: activePalette.primary + '30',
-                            pointBackgroundColor: activePalette.primary,
-                            pointBorderColor: '#ffffff',
-                            pointHoverBackgroundColor: '#ffffff',
-                            pointHoverBorderColor: activePalette.primary
-                        },
-                        {
-                            label: 'Engineering Manager',
-                            data: [60, 85, 80, 90, 85, 90],
-                            borderColor: activePalette.emerald,
-                            backgroundColor: activePalette.emerald + '30',
-                            pointBackgroundColor: activePalette.emerald,
-                            pointBorderColor: '#ffffff',
-                            pointHoverBackgroundColor: '#ffffff',
-                            pointHoverBorderColor: activePalette.emerald
-                        }
-                    ]
-                },
+                data: managerMindsetData,
                 options: {
-                    ...getDefaultChartOptions(),
+                    maintainAspectRatio: false,
+                    responsive: true,
                     plugins: {
-                        ...getDefaultChartOptions().plugins,
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: activePalette.bodyTextColor,
+                                font: { size: 12 }
+                            }
+                        },
                         tooltip: {
-                            ...getDefaultChartOptions().plugins.tooltip,
                             callbacks: {
                                 title: tooltipTitleCallback
-                            }
+                            },
+                            backgroundColor: activePalette.tooltipBg,
+                            titleColor: activePalette.bodyTextColor,
+                            bodyColor: activePalette.bodyTextColor,
+                            borderColor: activePalette.tooltipBorder,
+                            borderWidth: 1
                         }
                     },
                     scales: {
                         r: {
-                            beginAtZero: true,
-                            max: 100,
-                            ticks: {
-                                stepSize: 20,
-                                color: document.documentElement.classList.contains('dark') ? '#e2e8f0' : '#475569',
-                                font: {
-                                    family: 'Montserrat, sans-serif',
-                                    size: 10
-                                }
-                            },
-                            grid: {
-                                color: document.documentElement.classList.contains('dark') ? '#334155' : '#e2e8f0'
-                            },
+                            angleLines: { color: activePalette.gridColor },
+                            grid: { color: activePalette.gridColor },
                             pointLabels: {
-                                color: document.documentElement.classList.contains('dark') ? '#e2e8f0' : '#475569',
-                                font: {
-                                    family: 'Montserrat, sans-serif',
-                                    size: 11
-                                }
-                            }
+                                color: activePalette.bodyTextColor,
+                                font: { size: 12 }
+                            },
+                            ticks: {
+                                backdropColor: 'transparent', // Make ticks background transparent
+                                color: activePalette.neutral,
+                                stepSize: 2
+                            },
+                            min: 0,
+                            max: 10
                         }
                     }
                 }
