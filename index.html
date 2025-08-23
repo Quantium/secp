@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,12 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F0F4F8;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+            min-height: 100vh;
+        }
+        
+        .dark body {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
         }
         .chart-container {
             position: relative;
@@ -49,8 +54,17 @@
         .flow-node-title {
             color: #1E3A8A;
         }
+        
+        .dark .flow-node-title {
+            color: #60a5fa;
+        }
+        
         .flow-node-text {
             color: #475569;
+        }
+        
+        .dark .flow-node-text {
+            color: #cbd5e1;
         }
         .kpi-value {
             color: #1E3A8A;
@@ -59,14 +73,105 @@
             color: #475569;
         }
         .section-title {
-            color: #1E3A8A;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
+        
+        .dark .section-title {
+            background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
         .section-subtitle {
             color: #3B82F6;
         }
         .text-balance {
              text-wrap: balance;
         }
+        
+        /* Fixed Footer Styles */
+        .fixed-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #e2e8f0;
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark .fixed-footer {
+            background: rgba(30, 41, 59, 0.95);
+            border-top: 1px solid #475569;
+            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+        
+        .footer-left {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-info {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin: 0;
+            max-width: 600px;
+            line-height: 1.4;
+        }
+        
+        .dark .footer-info {
+            color: #94a3b8;
+        }
+        
+        .footer-logo {
+            height: 20px;
+            width: auto;
+        }
+        
+        .footer-text {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        .dark .footer-text {
+            color: #94a3b8;
+        }
+        
+        .footer-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .dark .footer-link {
+            color: #60a5fa;
+        }
+        
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+        
+        .dark .footer-link:hover {
+            color: #93c5fd;
+        }
+        
         .ladder-step {
             padding: 0.75rem 1rem;
             border-radius: 0.5rem;
@@ -95,11 +200,14 @@
         }
     </style>
 </head>
-<body class="text-slate-800">
+<body class="text-slate-800 bg-F0F4F8">
     <div class="container mx-auto p-4 md:p-8">
-        <header class="text-center mb-12">
+        <header class="text-center mb-12 relative">
             <h1 class="text-4xl md:text-5xl font-extrabold section-title mb-2 text-balance">Explorando las Trayectorias Profesionales de la Ingeniería de Software</h1>
             <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto text-balance">Una infografía que detalla el modelo de carrera de doble vía, desde roles iniciales hasta el liderazgo estratégico, con un enfoque en el crecimiento y el impacto en mercados diversos.</p>
+            <button id="themeToggle" class="absolute top-0 right-0 p-2 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <span id="themeIcon" class="text-xl">🌙</span> <!-- Moon for light, Sun for dark -->
+            </button>
         </header>
 
         <main>
@@ -120,47 +228,13 @@
                 </div>
             </section>
             
-            <section id="full-career-ladder-visual" class="mb-16">
+            <section id="full-career-ladder-canvas" class="mb-16">
                 <div class="text-center mb-10">
                     <h2 class="text-3xl font-bold section-title">Escalera Profesional Completa</h2>
-                    <p class="mt-2 text-slate-600 max-w-2xl mx-auto text-balance">Una representación visual de los niveles típicos en las vías de Contribuyente Individual y Gestión, destacando la progresión y los puntos de bifurcación.</p>
+                    <p class="mt-2 text-slate-600 max-w-2xl mx-auto text-balance">Una representación visual de los niveles típicos en las vías de Individual Contributor y Gestión, destacando la progresión y los puntos de bifurcación.</p>
                 </div>
-
-                <div class="flex flex-col items-center relative py-8 px-4 max-w-2xl mx-auto bg-white rounded-lg shadow-md">
-                    <div class="absolute -left-10 md:-left-24 top-1/2 -translate-y-1/2 transform -rotate-90 md:rotate-0 text-xl font-semibold text-blue-800 hidden md:block">
-                        Vía IC &rarr;
-                    </div>
-                    <div class="absolute -right-10 md:-right-24 top-1/2 -translate-y-1/2 transform rotate-90 md:rotate-0 text-xl font-semibold text-teal-700 hidden md:block">
-                        Vía EM &rarr;
-                    </div>
-
-                    <div class="flex flex-col md:flex-row md:items-end justify-center w-full relative">
-                        <!-- IC Path -->
-                        <div class="flex flex-col items-center md:items-end flex-grow md:w-1/2">
-                            <div class="ladder-step bg-rose-500 md:ml-auto">Ingeniero Principal</div>
-                            <div class="ladder-line h-8"></div>
-                            <div class="ladder-step bg-sky-500 md:ml-auto">Ingeniero de Software Staff</div>
-                            <div class="ladder-line h-8"></div>
-                            <div class="ladder-step bg-violet-500 md:ml-auto">Ingeniero de Software Sr.</div>
-                            <div class="ladder-line h-8"></div>
-                            <div class="ladder-step bg-orange-500 md:ml-auto">Ingeniero de Software II</div>
-                            <div class="ladder-line h-8"></div>
-                            <div class="ladder-step bg-blue-500 md:ml-auto">Ingeniero de Software</div>
-                            <div class="ladder-line h-8"></div>
-                            <div class="ladder-step bg-emerald-500 md:ml-auto">Interno</div>
-                        </div>
-
-                        <!-- EM Path Branch -->
-                        <div class="flex flex-col items-center md:items-start flex-grow md:w-1/2 md:absolute md:top-0 md:left-1/2 md:transform md:translate-x-1/2 md:ml-8 mt-8 md:mt-0">
-                            <div class="hidden md:block absolute h-[calc(100%-1rem)] w-0.5 bg-teal-500 -left-12 top-0"></div>
-                            <div class="ladder-step bg-fuchsia-500 md:mr-auto md:mt-[3rem]">Director</div>
-                            <div class="ladder-line h-8 bg-teal-500"></div>
-                            <div class="ladder-step bg-amber-500 md:mr-auto">Gerente de Ingeniería Senior</div>
-                            <div class="ladder-line h-8 bg-teal-500"></div>
-                            <div class="ladder-step bg-violet-500 md:mr-auto">Gerente de Ingeniería</div>
-                            <div class="ladder-line h-8 bg-teal-500"></div>
-                        </div>
-                    </div>
+                <div class="flex justify-center mb-8">
+                    <canvas id="careerLadderCanvas" width="800" height="450"></canvas>
                 </div>
             </section>
             
@@ -270,235 +344,498 @@
         </main>
 
         <footer class="text-center mt-12 pt-6 border-t border-slate-300">
-            <p class="text-sm text-slate-500">Infografía basada en el análisis de las trayectorias profesionales en empresas tecnológicas líderes. Los datos representan promedios de la industria y son solo para fines ilustrativos.</p>
+            
         </footer>
     </div>
 
-    <script>
-        const brilliantBluesPalette = {
-            primary: '#3B82F6',   // Blue-500
-            secondary: '#60A5FA', // Blue-400
-            accent: '#1E3A8A',    // Blue-800
-            neutral: '#94A3B8',   // Slate-400
-            text: '#1E293B',      // Slate-800
-            background: '#F0F4F8',
-            teal: '#14B8A6'
-        };
+    <!-- Fixed Footer -->
+    <footer class="fixed-footer">
+        <div class="footer-left">
+            <p class="footer-info">Infografía basada en el análisis de las trayectorias profesionales en empresas tecnológicas líderes. Los datos representan promedios de la industria y son solo para fines ilustrativos.</p>
+        </div>
+        <div class="footer-right">
+            <img src="assets/images/logoisotopo2.webp" alt="Isotopo Logo" class="footer-logo">
+            <span class="footer-text">made with ❤️ by <a href="https://isotopo.net" target="_blank" class="footer-link">isotopo</a></span>
+        </div>
+    </footer>
 
-        const wrapLabel = (label) => {
-            const maxLength = 16;
-            if (label.length <= maxLength) {
-                return label;
-            }
-            const words = label.split(' ');
-            const lines = [];
-            let currentLine = '';
-            for (const word of words) {
-                if ((currentLine + ' ' + word).trim().length > maxLength) {
-                    lines.push(currentLine.trim());
-                    currentLine = word;
-                } else {
-                    currentLine = (currentLine + ' ' + word).trim();
-                }
-            }
-            if (currentLine) {
-                lines.push(currentLine.trim());
-            }
-            return lines;
+    <script>
+        // Charts data and configuration
+        const charts = [];
+        const lightPalette = {
+            primary: '#1e40af',
+            secondary: '#3b82f6',
+            accent: '#60a5fa',
+            success: '#10b981',
+            warning: '#f59e0b',
+            danger: '#ef4444',
+            info: '#06b6d4',
+            emerald: '#059669',
+            orange: '#ea580c',
+            violet: '#7c3aed',
+            sky: '#0284c7',
+            rose: '#e11d48',
+            teal: '#14b8a6',
+            amber: '#f59e0b',
+            fuchsia: '#d946ef',
+            cardBg: '#ffffff',
+            bodyTextColor: '#475569'
         };
         
-        const tooltipTitleCallback = (tooltipItems) => {
-            const item = tooltipItems[0];
-            let label = item.chart.data.labels[item.dataIndex];
-            if (Array.isArray(label)) {
-                return label.join(' ');
-            }
-            return label;
+        const darkPalette = {
+            primary: '#60a5fa',
+            secondary: '#93c5fd',
+            accent: '#bfdbfe',
+            success: '#34d399',
+            warning: '#fbbf24',
+            danger: '#f87171',
+            info: '#22d3ee',
+            emerald: '#10b981',
+            orange: '#fb923c',
+            violet: '#a78bfa',
+            sky: '#38bdf8',
+            rose: '#fb7185',
+            teal: '#5eead4',
+            amber: '#fbbf24',
+            fuchsia: '#e879f9',
+            cardBg: '#1e293b',
+            bodyTextColor: '#e2e8f0'
         };
+        
+        let activePalette = lightPalette;
 
-        const defaultChartOptions = {
-            maintainAspectRatio: false,
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        color: brilliantBluesPalette.text,
-                        font: { size: 12 }
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        title: tooltipTitleCallback
-                    },
-                    backgroundColor: '#FFFFFF',
-                    titleColor: brilliantBluesPalette.text,
-                    bodyColor: brilliantBluesPalette.text,
-                    borderColor: brilliantBluesPalette.neutral,
-                    borderWidth: 1
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: { color: brilliantBluesPalette.text },
-                    grid: { color: '#E2E8F0' }
-                },
-                x: {
-                    ticks: { color: brilliantBluesPalette.text },
-                    grid: { display: false }
-                }
+        // Theme toggle functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (html.classList.contains('light')) {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                themeIcon.textContent = '☀️';
+                activePalette = darkPalette;
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                themeIcon.textContent = '🌙';
+                activePalette = lightPalette;
+                localStorage.setItem('theme', 'light');
             }
-        };
-
-        const icScopeCtx = document.getElementById('icScopeChart').getContext('2d');
-        const icScopeData = {
-            labels: ['Ingeniero SWE II', 'Ingeniero Senior', 'Ingeniero Staff', 'Ingeniero Principal', 'Ingeniero Distinguido'].map(wrapLabel),
-            datasets: [{
-                label: 'Número de Ingenieros Influeciados',
-                data: [1, 10, 50, 200, 1000],
-                backgroundColor: brilliantBluesPalette.primary,
-                borderColor: brilliantBluesPalette.accent,
-                borderWidth: 2,
-                barThickness: 30,
-            }]
-        };
-        new Chart(icScopeCtx, {
-            type: 'bar',
-            data: icScopeData,
-            options: { ...defaultChartOptions,
-                scales: {
-                    y: {
-                        type: 'logarithmic',
-                        beginAtZero: false,
-                        min: 1,
-                        ticks: {
-                            color: brilliantBluesPalette.text,
-                            callback: function(value, index, values) {
-                                if (value === 1000) return '1000+';
-                                if (value === 200) return '200';
-                                if (value === 50) return '50';
-                                if (value === 10) return '10';
-                                if (value === 1) return '1';
-                                return null;
-                            }
-                        },
-                        grid: { color: '#E2E8F0' }
-                    },
-                    x: {
-                        ticks: { color: brilliantBluesPalette.text, maxRotation: 0, minRotation: 0 },
-                        grid: { display: false }
-                    }
+            
+            updateCharts();
+            // Update canvas with new theme colors
+            drawCareerLadder();
+        }
+        
+        // Chart utility functions
+        function wrapLabel(ctx, label, maxWidth) {
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+            
+            for (let i = 1; i < words.length; i++) {
+                const word = words[i];
+                const width = ctx.measureText(currentLine + ' ' + word).width;
+                if (width < maxWidth) {
+                    currentLine += ' ' + word;
+                } else {
+                    lines.push(currentLine);
+                    currentLine = word;
                 }
             }
-        });
-
-        const icCompensationCtx = document.getElementById('icCompensationChart').getContext('2d');
-        const icCompensationData = {
-            labels: ['Nivel de Entrada', 'Nivel Senior', 'Nivel Staff', 'Nivel Principal/Distinguido'].map(wrapLabel),
-            datasets: [{
-                label: 'Potencial de Crecimiento de Compensación (Base: 100%)',
-                data: [100, 250, 350, 500],
-                backgroundColor: [brilliantBluesPalette.secondary, brilliantBluesPalette.primary, brilliantBluesPalette.accent, brilliantBluesPalette.teal],
-                borderColor: brilliantBluesPalette.accent,
-                borderWidth: 1
-            }]
-        };
-        new Chart(icCompensationCtx, {
-            type: 'bar',
-            data: icCompensationData,
-            options: { ...defaultChartOptions,
-                plugins: {
-                     ...defaultChartOptions.plugins,
-                     legend: { display: false }
-                },
-                scales: {
-                    y: {
-                         ...defaultChartOptions.scales.y,
-                         ticks: {
-                             callback: function(value) { return value + '%'; }
-                         },
-                         title: {
-                            display: true,
-                            text: 'Porcentaje Relativo',
-                            color: brilliantBluesPalette.text,
-                            font: { size: 14 }
-                         }
-                    },
-                    x: {
-                         ...defaultChartOptions.scales.x,
-                         ticks: {
-                             ...defaultChartOptions.scales.x.ticks,
-                             font: { size: 10 }
-                         }
-                    }
-                }
-            }
-        });
-
-        const managerMindsetCtx = document.getElementById('managerMindsetChart').getContext('2d');
-        const managerMindsetData = {
-            labels: ['Profundidad Técnica', 'Ejecución de Proyectos', 'Mentoría', 'Liderazgo de Equipo', 'Estrategia Organizacional', 'Comunicación'],
-            datasets: [{
-                label: 'Contribuyente Individual',
-                data: [9, 8, 6, 3, 2, 7],
-                fill: true,
-                backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                borderColor: brilliantBluesPalette.primary,
-                pointBackgroundColor: brilliantBluesPalette.primary,
-            }, {
-                label: 'Gerente de Ingeniería',
-                data: [5, 7, 9, 9, 8, 9],
-                fill: true,
-                backgroundColor: 'rgba(20, 184, 166, 0.2)',
-                borderColor: brilliantBluesPalette.teal,
-                pointBackgroundColor: brilliantBluesPalette.teal,
-            }]
-        };
-        new Chart(managerMindsetCtx, {
-            type: 'radar',
-            data: managerMindsetData,
-            options: {
-                maintainAspectRatio: false,
+            lines.push(currentLine);
+            return lines;
+        }
+        
+        function tooltipTitleCallback(context) {
+            const label = context[0].label;
+            const lines = wrapLabel(context[0].chart.ctx, label, 200);
+            return lines;
+        }
+        
+        function getDefaultChartOptions() {
+            return {
                 responsive: true,
-                 plugins: {
+                maintainAspectRatio: false,
+                plugins: {
                     legend: {
-                        position: 'bottom',
                         labels: {
-                            color: brilliantBluesPalette.text,
-                            font: { size: 12 }
+                            color: document.documentElement.classList.contains('dark') ? '#e2e8f0' : '#475569',
+                            font: {
+                                family: 'Inter, sans-serif',
+                                size: 12
+                            }
                         }
                     },
                     tooltip: {
-                         callbacks: {
-                            title: tooltipTitleCallback
+                        backgroundColor: document.documentElement.classList.contains('dark') ? '#1e293b' : '#ffffff',
+                        titleColor: document.documentElement.classList.contains('dark') ? '#e2e8f0' : '#1e293b',
+                        bodyColor: document.documentElement.classList.contains('dark') ? '#cbd5e1' : '#475569',
+                        borderColor: document.documentElement.classList.contains('dark') ? '#475569' : '#e2e8f0',
+                        borderWidth: 1,
+                        titleFont: {
+                            family: 'Inter, sans-serif',
+                            size: 14,
+                            weight: 'bold'
                         },
-                        backgroundColor: '#FFFFFF',
-                        titleColor: brilliantBluesPalette.text,
-                        bodyColor: brilliantBluesPalette.text,
-                        borderColor: brilliantBluesPalette.neutral,
-                        borderWidth: 1
+                        bodyFont: {
+                            family: 'Inter, sans-serif',
+                            size: 12
+                        }
                     }
                 },
                 scales: {
-                    r: {
-                        angleLines: { color: '#E2E8F0' },
-                        grid: { color: '#E2E8F0' },
-                        pointLabels: {
-                            color: brilliantBluesPalette.text,
-                            font: { size: 12 }
-                        },
+                    x: {
                         ticks: {
-                            backdropColor: 'transparent',
-                            color: brilliantBluesPalette.neutral,
-                            stepSize: 2
+                            color: document.documentElement.classList.contains('dark') ? '#e2e8f0' : '#475569',
+                            font: {
+                                family: 'Inter, sans-serif',
+                                size: 11
+                            }
                         },
-                        min: 0,
-                        max: 10
+                        grid: {
+                            color: document.documentElement.classList.contains('dark') ? '#334155' : '#e2e8f0'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: document.documentElement.classList.contains('dark') ? '#e2e8f0' : '#475569',
+                            font: {
+                                family: 'Inter, sans-serif',
+                                size: 11
+                            }
+                        },
+                        grid: {
+                            color: document.documentElement.classList.contains('dark') ? '#334155' : '#e2e8f0'
+                        }
                     }
                 }
+            };
+        }
+
+        // Create charts
+        function createCharts() {
+            // IC Scope Chart
+            const icScopeCtx = document.getElementById('icScopeChart').getContext('2d');
+            const icScopeChart = new Chart(icScopeCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Entry Level', 'Software Engineer II', 'Senior Engineer', 'Staff Engineer', 'Principal Engineer'],
+                    datasets: [{
+                        label: 'Scope of Impact',
+                        data: [1, 3, 8, 20, 50],
+                        borderColor: activePalette.primary,
+                        backgroundColor: activePalette.primary + '20',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    ...getDefaultChartOptions(),
+                    plugins: {
+                        ...getDefaultChartOptions().plugins,
+                        tooltip: {
+                            ...getDefaultChartOptions().plugins.tooltip,
+                            callbacks: {
+                                title: tooltipTitleCallback
+                            }
+                        }
+                    }
+                }
+            });
+            charts.push(icScopeChart);
+            
+            // IC Compensation Chart
+            const icCompensationCtx = document.getElementById('icCompensationChart').getContext('2d');
+            const icCompensationChart = new Chart(icCompensationCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Entry Level', 'Software Engineer II', 'Senior Engineer', 'Staff Engineer', 'Principal Engineer'],
+                    datasets: [{
+                        label: 'Compensation Range ($K)',
+                        data: [80, 120, 180, 250, 350],
+                        backgroundColor: [
+                            activePalette.emerald + '80',
+                            activePalette.primary + '80',
+                            activePalette.orange + '80',
+                            activePalette.violet + '80',
+                            activePalette.rose + '80'
+                        ],
+                        borderColor: [
+                            activePalette.emerald,
+                            activePalette.primary,
+                            activePalette.orange,
+                            activePalette.violet,
+                            activePalette.rose
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    ...getDefaultChartOptions(),
+                    plugins: {
+                        ...getDefaultChartOptions().plugins,
+                        tooltip: {
+                            ...getDefaultChartOptions().plugins.tooltip,
+                            callbacks: {
+                                title: tooltipTitleCallback
+                            }
+                        }
+                    }
+                }
+            });
+            charts.push(icCompensationChart);
+            
+            // Manager Mindset Chart
+            const managerMindsetCtx = document.getElementById('managerMindsetChart').getContext('2d');
+            const managerMindsetChart = new Chart(managerMindsetCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Technical Skills', 'Leadership', 'Strategy', 'Communication', 'Process Management', 'Team Building'],
+                    datasets: [
+                        {
+                            label: 'Individual Contributor',
+                            data: [90, 30, 40, 60, 20, 25],
+                            borderColor: activePalette.primary,
+                            backgroundColor: activePalette.primary + '30',
+                            pointBackgroundColor: activePalette.primary,
+                            pointBorderColor: '#ffffff',
+                            pointHoverBackgroundColor: '#ffffff',
+                            pointHoverBorderColor: activePalette.primary
+                        },
+                        {
+                            label: 'Engineering Manager',
+                            data: [60, 85, 80, 90, 85, 90],
+                            borderColor: activePalette.emerald,
+                            backgroundColor: activePalette.emerald + '30',
+                            pointBackgroundColor: activePalette.emerald,
+                            pointBorderColor: '#ffffff',
+                            pointHoverBackgroundColor: '#ffffff',
+                            pointHoverBorderColor: activePalette.emerald
+                        }
+                    ]
+                },
+                options: {
+                    ...getDefaultChartOptions(),
+                    plugins: {
+                        ...getDefaultChartOptions().plugins,
+                        tooltip: {
+                            ...getDefaultChartOptions().plugins.tooltip,
+                            callbacks: {
+                                title: tooltipTitleCallback
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                stepSize: 20,
+                                color: document.documentElement.classList.contains('dark') ? '#e2e8f0' : '#475569',
+                                font: {
+                                    family: 'Inter, sans-serif',
+                                    size: 10
+                                }
+                            },
+                            grid: {
+                                color: document.documentElement.classList.contains('dark') ? '#334155' : '#e2e8f0'
+                            },
+                            pointLabels: {
+                                color: document.documentElement.classList.contains('dark') ? '#e2e8f0' : '#475569',
+                                font: {
+                                    family: 'Inter, sans-serif',
+                                    size: 11
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            charts.push(managerMindsetChart);
+        }
+        
+        // Update charts with new theme
+        function updateCharts() {
+            charts.forEach(chart => {
+                if (chart && chart.destroy) {
+                    chart.destroy();
+                }
+            });
+            charts.length = 0;
+            createCharts();
+        }
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.remove('light');
+                document.documentElement.classList.add('dark');
+                document.getElementById('themeIcon').textContent = '☀️';
+                activePalette = darkPalette;
             }
+            
+            // Create charts
+            createCharts();
+            
+            // Initialize canvas
+            drawCareerLadder();
+            
+            // Event listeners
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
         });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            updateCharts();
+            drawCareerLadder();
+        });
+        
+        // Canvas functions
+        function drawWrappedText(ctx, text, x, y, maxWidth) {
+            const words = text.split(' ');
+            let line = '';
+            let lineHeight = ctx.measureText('M').actualBoundingBoxAscent + ctx.measureText('M').actualBoundingBoxDescent;
+            
+            for (let n = 0; n < words.length; n++) {
+                const testLine = line + words[n] + ' ';
+                const metrics = ctx.measureText(testLine);
+                const testWidth = metrics.width;
+                
+                if (testWidth > maxWidth && n > 0) {
+                    ctx.fillText(line, x, y);
+                    line = words[n] + ' ';
+                    y += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            ctx.fillText(line, x, y);
+        }
+        
+        function drawCareerLadder() {
+            const canvas = document.getElementById('careerLadderCanvas');
+            if (!canvas) return; // Exit if canvas not found
+            const ctx = canvas.getContext('2d');
+
+            // Adjust canvas size for responsiveness
+            const containerWidth = canvas.parentElement.offsetWidth;
+            const aspectRatio = 800 / 450; // Original aspect ratio
+            canvas.width = Math.min(containerWidth, 800);
+            canvas.height = canvas.width / aspectRatio;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = activePalette.cardBg; // Canvas background
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = `${14 * (canvas.width / 800)}px Inter`; // Responsive font size
+            ctx.textBaseline = 'middle';
+            ctx.textAlign = 'center';
+
+            const scaleX = canvas.width / 800;
+            const scaleY = canvas.height / 450;
+
+            const icLadder = [
+                { text: 'Interno', color: activePalette.emerald, x: 100, y: 380 },
+                { text: 'Ingeniero de Software', color: activePalette.primary, x: 180, y: 340 },
+                { text: 'Ingeniero de Software II', color: activePalette.orange, x: 260, y: 300 },
+                { text: 'Ingeniero de Software Sr.', color: activePalette.violet, x: 340, y: 260 },
+                { text: 'Ingeniero de Software Staff', color: activePalette.sky, x: 420, y: 220 },
+                { text: 'Ingeniero Principal', color: activePalette.rose, x: 500, y: 180 }
+            ];
+
+            const emLadder = [
+                { text: 'Gerente de Ingeniería', color: activePalette.violet, x: 550, y: 260 },
+                { text: 'Gerente de Ingeniería Senior', color: activePalette.amber, x: 650, y: 220 },
+                { text: 'Director', color: activePalette.fuchsia, x: 750, y: 180 }
+            ];
+
+            const rectWidth = 150 * scaleX;
+            const rectHeight = 35 * scaleY;
+            const borderRadius = 5 * Math.min(scaleX, scaleY);
+
+            // Draw IC Ladder
+            icLadder.forEach((step, index) => {
+                const x = step.x * scaleX;
+                const y = step.y * scaleY;
+                
+                ctx.fillStyle = step.color;
+                ctx.beginPath();
+                ctx.roundRect(x - rectWidth / 2, y - rectHeight / 2, rectWidth, rectHeight, borderRadius);
+                ctx.fill();
+
+                ctx.fillStyle = 'white';
+                ctx.fillText(step.text, x, y);
+            });
+
+            // Draw EM Ladder
+            emLadder.forEach((step) => {
+                const x = step.x * scaleX;
+                const y = step.y * scaleY;
+
+                ctx.fillStyle = step.color;
+                ctx.beginPath();
+                ctx.roundRect(x - rectWidth / 2, y - rectHeight / 2, rectWidth, rectHeight, borderRadius);
+                ctx.fill();
+
+                ctx.fillStyle = 'white';
+                ctx.fillText(step.text, x, y);
+            });
+
+            // Draw connecting arrow from IC to EM
+            const srSWE = icLadder[3]; // Sr. Software Engineer
+            const engManager = emLadder[0]; // Engineering Manager
+
+            ctx.beginPath();
+            ctx.moveTo(srSWE.x * scaleX + rectWidth / 2, srSWE.y * scaleY);
+            ctx.lineTo(engManager.x * scaleX - rectWidth / 2, engManager.y * scaleY);
+            ctx.strokeStyle = activePalette.teal;
+            ctx.lineWidth = 2 * Math.min(scaleX, scaleY);
+            ctx.stroke();
+
+            // Draw arrow head for IC-EM connection
+            const arrowHeadSize = 8 * Math.min(scaleX, scaleY);
+            ctx.fillStyle = activePalette.teal;
+            ctx.beginPath();
+            ctx.moveTo(engManager.x * scaleX - rectWidth / 2 - arrowHeadSize, engManager.y * scaleY - arrowHeadSize / 2);
+            ctx.lineTo(engManager.x * scaleX - rectWidth / 2, engManager.y * scaleY);
+            ctx.lineTo(engManager.x * scaleX - rectWidth / 2 - arrowHeadSize, engManager.y * scaleY + arrowHeadSize / 2);
+            ctx.fill();
+
+            // Draw diagonal IC Ladder line
+            ctx.beginPath();
+            ctx.moveTo(icLadder[0].x * scaleX + rectWidth / 2 - 20 * scaleX, icLadder[0].y * scaleY + rectHeight / 2); // Start near Intern
+            ctx.lineTo(icLadder[icLadder.length - 1].x * scaleX + rectWidth / 2 + 20 * scaleX, icLadder[icLadder.length - 1].y * scaleY - rectHeight / 2); // End near Principal
+            ctx.strokeStyle = activePalette.accent;
+            ctx.lineWidth = 3 * Math.min(scaleX, scaleY);
+            ctx.stroke();
+
+            // Draw arrow head for IC Ladder line
+            const lastIC = icLadder[icLadder.length - 1];
+            ctx.fillStyle = activePalette.accent;
+            ctx.beginPath();
+            ctx.moveTo(lastIC.x * scaleX + rectWidth / 2 + 20 * scaleX - arrowHeadSize, lastIC.y * scaleY - rectHeight / 2 - arrowHeadSize / 2);
+            ctx.lineTo(lastIC.x * scaleX + rectWidth / 2 + 20 * scaleX, lastIC.y * scaleY - rectHeight / 2);
+            ctx.lineTo(lastIC.x * scaleX + rectWidth / 2 + 20 * scaleX - arrowHeadSize, lastIC.y * scaleY - rectHeight / 2 + arrowHeadSize / 2);
+            ctx.fill();
+
+            // Add labels for "IC Ladder" and "Full career ladder"
+            ctx.fillStyle = activePalette.bodyTextColor;
+            ctx.textAlign = 'left';
+            ctx.font = `${20 * scaleX}px Inter`;
+            ctx.fillText('Escalera de Contribuyente Individual (IC)', 10 * scaleX, 100 * scaleY);
+
+            ctx.font = `${28 * scaleX}px Inter ExtraBold`;
+            ctx.fillText('Escalera Profesional Completa', 10 * scaleX, 50 * scaleY);
+        }
+        
+
+        
+
     </script>
 </body>
 </html>
+
