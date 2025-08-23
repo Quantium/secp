@@ -8,10 +8,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
             min-height: 100vh;
         }
@@ -204,7 +204,7 @@
     <div class="container mx-auto p-4 md:p-8">
         <header class="text-center mb-12 relative">
             <h1 class="text-4xl md:text-5xl font-extrabold section-title mb-2 text-balance">Explorando las Trayectorias Profesionales de la Ingeniería de Software</h1>
-            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto text-balance">Una infografía que detalla el modelo de carrera de doble vía, desde roles iniciales hasta el liderazgo estratégico, con un enfoque en el crecimiento y el impacto en mercados diversos.</p>
+            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto text-balance">Una infografía que detalla el modelo two-way career path, desde roles iniciales hasta el liderazgo estratégico, con un enfoque en el crecimiento y el impacto en mercados diversos.</p>
             <button id="themeToggle" class="absolute top-0 right-0 p-2 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <span id="themeIcon" class="text-xl">🌙</span> <!-- Moon for light, Sun for dark -->
             </button>
@@ -214,15 +214,15 @@
             <section id="dual-track" class="mb-16">
                 <div class="text-center mb-10">
                     <h2 class="text-3xl font-bold section-title">La Carrera Profesional de Doble Vía</h2>
-                    <p class="mt-2 text-slate-600 max-w-2xl mx-auto text-balance">Las empresas tecnológicas modernas estructuran las carreras en dos caminos paralelos: la vía del **Contribuyente Individual (IC)** para la maestría técnica, y la vía del **Gerente de Ingeniería (EM)** para el liderazgo de personas. Esto asegura que la experiencia técnica profunda sea valorada y recompensada a la par de la gestión, ofreciendo caminos para un crecimiento significativo en ambos roles, como se observa en marcos de ingeniería globales.</p>
+                    <p class="mt-2 text-slate-600 max-w-2xl mx-auto text-balance">Las empresas tecnológicas modernas estructuran las carreras en dos caminos paralelos: la vía del **Individual Contributor (IC)** para la maestría técnica, y la vía del **Engineering Manager (EM)** para el liderazgo de personas. Esto asegura que la experiencia técnica profunda sea valorada y recompensada a la par de la gestión, ofreciendo caminos para un crecimiento significativo en ambos roles, como se observa en marcos de ingeniería globales.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
-                        <h3 class="text-2xl font-bold mb-3 flow-node-title">💻 Contribuyente Individual (IC)</h3>
+                        <h3 class="text-2xl font-bold mb-3 flow-node-title">💻 Individual Contributor (IC)</h3>
                         <p class="flow-node-text">Este camino es para ingenieros que desean mantenerse prácticos y resolver desafíos técnicos complejos. El crecimiento se mide por el creciente alcance e impacto de sus contribuciones técnicas, desde una sola característica hasta sistemas a nivel de toda la empresa.</p>
                     </div>
                     <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-teal-500">
-                        <h3 class="text-2xl font-bold mb-3" style="color: #0D9488;">🤝 Gerente de Ingeniería (EM)</h3>
+                        <h3 class="text-2xl font-bold mb-3" style="color: #0D9488;">🤝 Engineering Manager (EM)</h3>
                         <p class="flow-node-text">Este camino es para quienes se destacan en el liderazgo de personas y procesos. El éxito se mide por el rendimiento, el crecimiento y la alineación del equipo con los objetivos comerciales. El enfoque cambia de escribir código a construir y habilitar equipos de alto rendimiento.</p>
                     </div>
                 </div>
@@ -231,7 +231,7 @@
             <section id="full-career-ladder-canvas" class="mb-16">
                 <div class="text-center mb-10">
                     <h2 class="text-3xl font-bold section-title">Escalera Profesional Completa</h2>
-                    <p class="mt-2 text-slate-600 max-w-2xl mx-auto text-balance">Una representación visual de los niveles típicos en las vías de Individual Contributor y Gestión, destacando la progresión y los puntos de bifurcación.</p>
+                    <p class="mt-2 text-slate-600 max-w-2xl mx-auto text-balance">Una representación visual de los niveles típicos en las vías de Individual Contributor y Engineering Management, destacando la progresión y los puntos de bifurcación.</p>
                 </div>
                 <div class="flex justify-center mb-8">
                     <canvas id="careerLadderCanvas" width="800" height="450"></canvas>
@@ -240,7 +240,7 @@
             
             <section id="ic-path" class="mb-16">
                  <div class="text-center mb-10">
-                    <h2 class="text-3xl font-bold section-title">La Vía del Contribuyente Individual (IC)</h2>
+                    <h2 class="text-3xl font-bold section-title">La Vía del Individual Contributor (IC)</h2>
                     <p class="mt-2 text-slate-600 max-w-2xl mx-auto text-balance">Un viaje de profundización en la experiencia técnica y expansión de la influencia, donde el valor cambia de la producción personal al impacto estratégico que aprovecha el trabajo de muchos.</p>
                 </div>
 
@@ -265,14 +265,14 @@
                 </div>
                  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
                     <div class="bg-white rounded-lg shadow-md p-6">
-                        <h3 class="text-xl font-bold text-center mb-4 section-title">Alcance de Impacto del IC por Nivel</h3>
+                        <h3 class="text-xl font-bold text-center mb-4 section-title">Scope of IC Impact by Level</h3>
                         <div class="chart-container h-80 md:h-96">
                             <canvas id="icScopeChart"></canvas>
                         </div>
                          <p class="text-center mt-4 text-sm text-slate-500 text-balance">Este gráfico ilustra cómo la influencia de un IC crece exponencialmente, desde tareas individuales hasta la configuración de la estrategia técnica a nivel de toda la empresa.</p>
                     </div>
                     <div class="bg-white rounded-lg shadow-md p-6">
-                        <h3 class="text-xl font-bold text-center mb-4 section-title">Potencial de Crecimiento en la Vía IC</h3>
+                        <h3 class="text-xl font-bold text-center mb-4 section-title">Growth Potential in IC Path</h3>
                         <div class="chart-container h-80 md:h-96">
                             <canvas id="icCompensationChart"></canvas>
                         </div>
@@ -283,25 +283,25 @@
 
             <section id="em-path" class="mb-16">
                 <div class="text-center mb-10">
-                    <h2 class="text-3xl font-bold section-title">La Vía de la Gestión de Ingeniería (EM)</h2>
+                    <h2 class="text-3xl font-bold section-title">El path de Engineering Management (EM)</h2>
                     <p class="mt-2 text-slate-600 max-w-2xl mx-auto text-balance">Una transición de construir software a construir equipos. El enfoque está en escalar el impacto a través de personas, procesos y estrategia organizacional.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="bg-white rounded-lg shadow-md p-6">
-                         <h3 class="text-xl font-bold flow-node-title mb-2">Gerente de Ingeniería</h3>
+                         <h3 class="text-xl font-bold flow-node-title mb-2">Engineering Manager</h3>
                          <p class="flow-node-text">Gestiona un solo equipo (5-10 ingenieros). Responsable de la entrega de proyectos, contratación, mentoría y creación de un ambiente de equipo saludable.</p>
                     </div>
                      <div class="bg-white rounded-lg shadow-md p-6">
-                         <h3 class="text-xl font-bold flow-node-title mb-2">Director de Ingeniería</h3>
+                         <h3 class="text-xl font-bold flow-node-title mb-2">Director of Engineering</h3>
                          <p class="flow-node-text">Gestiona múltiples equipos y otros gerentes. Establece la estrategia a nivel de departamento, supervisa presupuestos e impulsa iniciativas más grandes.</p>
                     </div>
                      <div class="bg-white rounded-lg shadow-md p-6 md:col-span-2 lg:col-span-1">
-                         <h3 class="text-xl font-bold flow-node-title mb-2">Liderazgo Senior (VP/CTO)</h3>
+                         <h3 class="text-xl font-bold flow-node-title mb-2">Senior Leadership (VP/CTO)</h3>
                          <p class="flow-node-text">Lidera organizaciones de ingeniería completas. Responsable de la visión tecnológica a largo plazo, la alineación comercial y la cultura de la empresa.</p>
                     </div>
                 </div>
                 <div class="bg-white rounded-lg shadow-md p-6 mt-12">
-                     <h3 class="text-xl font-bold text-center mb-4 section-title">El Cambio de Mentalidad del Gerente</h3>
+                     <h3 class="text-xl font-bold text-center mb-4 section-title">The Manager Mindset Shift</h3>
                      <p class="text-center text-slate-600 mb-6 max-w-2xl mx-auto text-balance">La transición más crítica es medir el éxito no por las contribuciones de código personales, sino por los logros colectivos y el crecimiento del equipo.</p>
                      <div class="chart-container mx-auto" style="height: 320px;">
                         <canvas id="managerMindsetChart"></canvas>
@@ -318,7 +318,7 @@
                 <div class="bg-white rounded-lg shadow-md p-8">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
-                            <h4 class="text-lg font-semibold flow-node-title mb-2">Sigue la Vía del IC si...</h4>
+                            <h4 class="text-lg font-semibold flow-node-title mb-2">Follow the IC Path if...</h4>
                             <ul class="list-disc list-inside space-y-2 flow-node-text">
                                 <li>Encuentras profunda satisfacción en resolver problemas técnicos complejos.</li>
                                 <li>Prefieres autonomía en tu trabajo diario.</li>
@@ -327,7 +327,7 @@
                             </ul>
                         </div>
                         <div>
-                            <h4 class="text-lg font-semibold flow-node-title mb-2">Sigue la Vía del EM si...</h4>
+                            <h4 class="text-lg font-semibold flow-node-title mb-2">Follow the EM Path if...</h4>
                             <ul class="list-disc list-inside space-y-2 flow-node-text">
                                 <li>Te apasiona ayudar a otros a crecer y tener éxito.</li>
                                 <li>Disfrutas pensando en estrategia, procesos y el panorama general.</li>
@@ -463,7 +463,7 @@
                         labels: {
                             color: document.documentElement.classList.contains('dark') ? '#e2e8f0' : '#475569',
                             font: {
-                                family: 'Inter, sans-serif',
+                                family: 'Montserrat, sans-serif',
                                 size: 12
                             }
                         }
@@ -475,12 +475,12 @@
                         borderColor: document.documentElement.classList.contains('dark') ? '#475569' : '#e2e8f0',
                         borderWidth: 1,
                         titleFont: {
-                            family: 'Inter, sans-serif',
+                            family: 'Montserrat, sans-serif',
                             size: 14,
                             weight: 'bold'
                         },
                         bodyFont: {
-                            family: 'Inter, sans-serif',
+                            family: 'Montserrat, sans-serif',
                             size: 12
                         }
                     }
@@ -490,7 +490,7 @@
                         ticks: {
                             color: document.documentElement.classList.contains('dark') ? '#e2e8f0' : '#475569',
                             font: {
-                                family: 'Inter, sans-serif',
+                                family: 'Montserrat, sans-serif',
                                 size: 11
                             }
                         },
@@ -502,7 +502,7 @@
                         ticks: {
                             color: document.documentElement.classList.contains('dark') ? '#e2e8f0' : '#475569',
                             font: {
-                                family: 'Inter, sans-serif',
+                                family: 'Montserrat, sans-serif',
                                 size: 11
                             }
                         },
@@ -635,7 +635,7 @@
                                 stepSize: 20,
                                 color: document.documentElement.classList.contains('dark') ? '#e2e8f0' : '#475569',
                                 font: {
-                                    family: 'Inter, sans-serif',
+                                    family: 'Montserrat, sans-serif',
                                     size: 10
                                 }
                             },
@@ -645,7 +645,7 @@
                             pointLabels: {
                                 color: document.documentElement.classList.contains('dark') ? '#e2e8f0' : '#475569',
                                 font: {
-                                    family: 'Inter, sans-serif',
+                                    family: 'Montserrat, sans-serif',
                                     size: 11
                                 }
                             }
@@ -731,7 +731,7 @@
             ctx.fillStyle = activePalette.cardBg; // Canvas background
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.font = `${14 * (canvas.width / 800)}px Inter`; // Responsive font size
+            ctx.font = `${14 * (canvas.width / 800)}px Montserrat`; // Responsive font size
             ctx.textBaseline = 'middle';
             ctx.textAlign = 'center';
 
@@ -739,22 +739,22 @@
             const scaleY = canvas.height / 450;
 
             const icLadder = [
-                { text: 'Interno', color: activePalette.emerald, x: 100, y: 380 },
-                { text: 'Ingeniero de Software', color: activePalette.primary, x: 180, y: 340 },
-                { text: 'Ingeniero de Software II', color: activePalette.orange, x: 260, y: 300 },
-                { text: 'Ingeniero de Software Sr.', color: activePalette.violet, x: 340, y: 260 },
-                { text: 'Ingeniero de Software Staff', color: activePalette.sky, x: 420, y: 220 },
-                { text: 'Ingeniero Principal', color: activePalette.rose, x: 500, y: 180 }
+                { text: 'Intern', color: activePalette.emerald, x: 100, y: 380 },
+                { text: 'Software Engineer', color: activePalette.primary, x: 180, y: 330 },
+                { text: 'Software Engineer II', color: activePalette.orange, x: 260, y: 280 },
+                { text: 'Senior Software Engineer', color: activePalette.violet, x: 340, y: 230 },
+                { text: 'Staff Software Engineer', color: activePalette.sky, x: 420, y: 180 },
+                { text: 'Principal Engineer', color: activePalette.rose, x: 500, y: 130 }
             ];
 
             const emLadder = [
-                { text: 'Gerente de Ingeniería', color: activePalette.violet, x: 550, y: 260 },
-                { text: 'Gerente de Ingeniería Senior', color: activePalette.amber, x: 650, y: 220 },
-                { text: 'Director', color: activePalette.fuchsia, x: 750, y: 180 }
+                { text: 'Engineering Manager', color: activePalette.violet, x: 550, y: 230 },
+                { text: 'Senior Engineering Manager', color: activePalette.amber, x: 650, y: 180 },
+                { text: 'Director of Engineering', color: activePalette.fuchsia, x: 750, y: 130 }
             ];
 
             const rectWidth = 150 * scaleX;
-            const rectHeight = 35 * scaleY;
+            const rectHeight = 50 * scaleY;
             const borderRadius = 5 * Math.min(scaleX, scaleY);
 
             // Draw IC Ladder
@@ -768,7 +768,7 @@
                 ctx.fill();
 
                 ctx.fillStyle = 'white';
-                ctx.fillText(step.text, x, y);
+                drawWrappedText(ctx, step.text, x, y, rectWidth - 10 * scaleX);
             });
 
             // Draw EM Ladder
@@ -782,11 +782,11 @@
                 ctx.fill();
 
                 ctx.fillStyle = 'white';
-                ctx.fillText(step.text, x, y);
+                drawWrappedText(ctx, step.text, x, y, rectWidth - 10 * scaleX);
             });
 
             // Draw connecting arrow from IC to EM
-            const srSWE = icLadder[3]; // Sr. Software Engineer
+            const srSWE = icLadder[3]; // Senior Software Engineer
             const engManager = emLadder[0]; // Engineering Manager
 
             ctx.beginPath();
@@ -825,11 +825,11 @@
             // Add labels for "IC Ladder" and "Full career ladder"
             ctx.fillStyle = activePalette.bodyTextColor;
             ctx.textAlign = 'left';
-            ctx.font = `${20 * scaleX}px Inter`;
-            ctx.fillText('Escalera de Contribuyente Individual (IC)', 10 * scaleX, 100 * scaleY);
+            ctx.font = `${20 * scaleX}px Montserrat`;
+            ctx.fillText('Individual Contributor (IC) Ladder', 10 * scaleX, 100 * scaleY);
 
-            ctx.font = `${28 * scaleX}px Inter ExtraBold`;
-            ctx.fillText('Escalera Profesional Completa', 10 * scaleX, 50 * scaleY);
+            ctx.font = `${28 * scaleX}px Montserrat ExtraBold`;
+            ctx.fillText('Complete Professional Ladder', 10 * scaleX, 50 * scaleY);
         }
         
 
