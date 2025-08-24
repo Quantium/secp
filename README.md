@@ -1,195 +1,197 @@
-# Software Engineering Career Paths
+# Rutas de Carrera en Ingeniería de Software
 
-A comprehensive, interactive infographic that explores the modern dual-track career model in software engineering, from entry-level roles to executive leadership. This tool provides clear visualizations and insights into both Individual Contributor (IC) and Engineering Manager (EM) career paths.
+(⚠️Este readme fue generado por IA)
 
-## 🌟 Features
+Una infografía interactiva integral que explora el modelo moderno de carrera de doble vía en ingeniería de software, desde roles de nivel inicial hasta liderazgo ejecutivo. Esta herramienta proporciona visualizaciones claras e información sobre las rutas de carrera tanto de Contribuidor Individual (IC) como de Gerente de Ingeniería (EM).
 
-### Career Path Visualization
-- **Dual-Track System**: Clear comparison between IC and EM career paths
-- **Interactive Charts**: Multiple Chart.js visualizations showing career progression
-- **Scope of Impact**: Visual representation of how influence grows across career levels
-- **Compensation Data**: Industry benchmark data from top tech companies
+## 🌟 Características
 
-### Individual Contributor (IC) Path
-- **Entry-Level to Distinguished**: Complete progression from SWE II to Distinguished Engineer
-- **Scope Visualization**: Chart showing exponential growth in influence (1 to 1000+ engineers)
-- **Compensation Insights**: Salary progression data from Google and Meta levels
-- **Career Milestones**: Clear progression indicators and expectations
+### Visualización de Rutas de Carrera
+- **Sistema de Doble Vía**: Comparación clara entre las rutas de carrera IC y EM
+- **Gráficos Interactivos**: Múltiples visualizaciones de Chart.js que muestran la progresión de carrera
+- **Alcance de Impacto**: Representación visual de cómo crece la influencia a través de los niveles de carrera
+- **Datos de Compensación**: Datos de referencia de la industria de las principales empresas tecnológicas
 
-### Engineering Management (EM) Path
-- **Management Levels**: From Engineering Manager to VP/CTO
-- **Mindset Shift Analysis**: Radar chart comparing IC vs EM skill requirements
-- **Leadership Progression**: Team management to organizational strategy
-- **Success Metrics**: How success measurement changes from code to team output
+### Ruta de Contribuidor Individual (IC)
+- **De Nivel Inicial a Distinguido**: Progresión completa desde SWE II hasta Ingeniero Distinguido
+- **Visualización de Alcance**: Gráfico que muestra el crecimiento exponencial en influencia (1 a 1000+ ingenieros)
+- **Información de Compensación**: Datos de progresión salarial de niveles de Google y Meta
+- **Hitos de Carrera**: Indicadores claros de progresión y expectativas
 
-### Decision Guidance
-- **Path Selection Help**: Clear criteria for choosing IC vs EM tracks
-- **Personal Assessment**: Questions to help determine your career direction
-- **Industry Insights**: Based on analysis of leading technology companies
+### Ruta de Gerencia de Ingeniería (EM)
+- **Niveles de Gerencia**: Desde Gerente de Ingeniería hasta VP/CTO
+- **Análisis de Cambio de Mentalidad**: Gráfico de radar comparando requisitos de habilidades IC vs EM
+- **Progresión de Liderazgo**: Gestión de equipo a estrategia organizacional
+- **Métricas de Éxito**: Cómo cambia la medición del éxito del código al resultado del equipo
 
-## 🚀 Getting Started
+### Orientación para Decisiones
+- **Ayuda para Selección de Ruta**: Criterios claros para elegir entre vías IC vs EM
+- **Evaluación Personal**: Preguntas para ayudar a determinar tu dirección de carrera
+- **Información de la Industria**: Basada en análisis de empresas tecnológicas líderes
 
-### Prerequisites
-- Modern web browser (Chrome, Firefox, Safari, Edge)
-- No build tools or dependencies required
+## 🚀 Comenzando
 
-### Installation
-1. Clone the repository:
+### Prerrequisitos
+- Navegador web moderno (Chrome, Firefox, Safari, Edge)
+- No se requieren herramientas de construcción o dependencias
+
+### Instalación
+1. Clona el repositorio:
    ```bash
    git clone https://github.com/yourusername/software-engineering-career-paths.git
    cd software-engineering-career-paths
    ```
 
-2. Open `index.html` in your web browser
-   - Double-click the file, or
-   - Drag and drop into your browser, or
-   - Use a local server (recommended for development)
+2. Abre `index.html` en tu navegador web
+   - Haz doble clic en el archivo, o
+   - Arrastra y suelta en tu navegador, o
+   - Usa un servidor local (recomendado para desarrollo)
 
-### Local Development Server
-For the best development experience, use a local server:
+### Servidor de Desarrollo Local
+Para la mejor experiencia de desarrollo, usa un servidor local:
 
 ```bash
-# Using Python 3
+# Usando Python 3
 python -m http.server 8000
 
-# Using Node.js (if you have it installed)
+# Usando Node.js (si lo tienes instalado)
 npx serve .
 
-# Using PHP
+# Usando PHP
 php -S localhost:8000
 ```
 
-Then open `http://localhost:8000` in your browser.
+Luego abre `http://localhost:8000` en tu navegador.
 
-## 🛠️ Technology Stack
+## 🛠️ Stack Tecnológico
 
-- **Frontend**: Vanilla JavaScript (ES6+)
-- **Styling**: Tailwind CSS (via CDN)
-- **Charts**: Chart.js (via CDN)
-- **Fonts**: Google Fonts (Inter)
-- **No build tools or bundlers required**
+- **Frontend**: JavaScript Vanilla (ES6+)
+- **Estilos**: Tailwind CSS (vía CDN)
+- **Gráficos**: Chart.js (vía CDN)
+- **Fuentes**: Google Fonts (Inter)
+- **No se requieren herramientas de construcción o bundlers**
 
-## 📁 Project Structure
+## 📁 Estructura del Proyecto
 
 ```
 software-engineering-career-paths/
-├── index.html          # Main infographic file
-├── README.md           # This file
-├── CONTRIBUTING.md     # Contribution guidelines
-├── LICENSE             # MIT License
-├── .gitignore          # Git ignore rules
-├── .github/            # GitHub-specific files
+├── index.html          # Archivo principal de infografía
+├── README.md           # Este archivo
+├── CONTRIBUTING.md     # Guías de contribución
+├── LICENSE             # Licencia MIT
+├── .gitignore          # Reglas de Git ignore
+├── .github/            # Archivos específicos de GitHub
 │   └── workflows/      # GitHub Actions
-│       └── deploy.yml  # Deployment workflow
-└── docs/               # Documentation
-    └── ARCHITECTURE.md # Technical architecture
+│       └── deploy.yml  # Flujo de trabajo de despliegue
+└── docs/               # Documentación
+    └── ARCHITECTURE.md # Arquitectura técnica
 ```
 
-## 🔧 Development
+## 🔧 Desarrollo
 
-### Code Style
-- Use consistent indentation (2 spaces)
-- Follow JavaScript ES6+ best practices
-- Maintain semantic HTML structure
-- Use descriptive variable and function names
+### Estilo de Código
+- Usa indentación consistente (2 espacios)
+- Sigue las mejores prácticas de JavaScript ES6+
+- Mantén estructura HTML semántica
+- Usa nombres descriptivos para variables y funciones
 
-### Adding New Features
-1. Create a feature branch: `git checkout -b feature/new-feature`
-2. Make your changes
-3. Test thoroughly in multiple browsers
-4. Commit with descriptive messages
-5. Push and create a pull request
+### Agregando Nuevas Características
+1. Crea una rama de característica: `git checkout -b feature/nueva-caracteristica`
+2. Haz tus cambios
+3. Prueba exhaustivamente en múltiples navegadores
+4. Haz commit con mensajes descriptivos
+5. Haz push y crea un pull request
 
-### Testing
-- Test in multiple browsers (Chrome, Firefox, Safari, Edge)
-- Test responsive design on different screen sizes
-- Ensure accessibility standards are met
-- Validate HTML and CSS
+### Pruebas
+- Prueba en múltiples navegadores (Chrome, Firefox, Safari, Edge)
+- Prueba el diseño responsivo en diferentes tamaños de pantalla
+- Asegura que se cumplan los estándares de accesibilidad
+- Valida HTML y CSS
 
-## 📝 Contributing
+## 📝 Contribuyendo
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+¡Aceptamos contribuciones! Por favor consulta [CONTRIBUTING.md](CONTRIBUTING.md) para guías detalladas.
 
-### How to Contribute
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+### Cómo Contribuir
+1. Haz fork del repositorio
+2. Crea una rama de característica
+3. Haz tus cambios
+4. Prueba exhaustivamente
+5. Envía un pull request
 
-### Areas for Contribution
-- **Content Updates**: Career path information, industry data
-- **UI/UX Improvements**: Better visualizations, responsive design
-- **New Features**: Additional career tools, assessment quizzes
-- **Documentation**: Better explanations, examples
-- **Accessibility**: Screen reader support, keyboard navigation
-- **Performance**: Code optimization, loading improvements
-- **Data Accuracy**: Update compensation and career level information
+### Áreas para Contribución
+- **Actualizaciones de Contenido**: Información de rutas de carrera, datos de la industria
+- **Mejoras de UI/UX**: Mejores visualizaciones, diseño responsivo
+- **Nuevas Características**: Herramientas adicionales de carrera, cuestionarios de evaluación
+- **Documentación**: Mejores explicaciones, ejemplos
+- **Accesibilidad**: Soporte para lectores de pantalla, navegación por teclado
+- **Rendimiento**: Optimización de código, mejoras de carga
+- **Precisión de Datos**: Actualizar información de compensación y niveles de carrera
 
-## 🚀 Deployment
+## 🚀 Despliegue
 
 ### GitHub Pages
-This repository is configured to automatically deploy to GitHub Pages. Simply push to the `main` branch and the site will be available at:
+Este repositorio está configurado para desplegarse automáticamente en GitHub Pages. Simplemente haz push a la rama `main` y el sitio estará disponible en:
 `https://yourusername.github.io/software-engineering-career-paths/`
 
-### Manual Deployment
-1. Build/minify the project (if needed)
-2. Upload files to your web server
-3. Ensure all assets are accessible
+### Despliegue Manual
+1. Construye/minifica el proyecto (si es necesario)
+2. Sube los archivos a tu servidor web
+3. Asegúrate de que todos los activos sean accesibles
 
-## 📊 Browser Support
+## 📊 Soporte de Navegadores
 
 - **Chrome**: 80+
 - **Firefox**: 75+
 - **Safari**: 13+
 - **Edge**: 80+
 
-## 🔒 Security
+## 🔒 Seguridad
 
-- No sensitive data is stored
-- All external resources use HTTPS
-- No user authentication required
-- Static site with no backend
+- No se almacenan datos sensibles
+- Todos los recursos externos usan HTTPS
+- No se requiere autenticación de usuario
+- Sitio estático sin backend
 
-## 📄 License
+## 📄 Licencia
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo [LICENSE](LICENSE) para detalles.
 
-## 🤝 Support
+## 🤝 Soporte
 
-- **Issues**: Use [GitHub Issues](https://github.com/yourusername/software-engineering-career-paths/issues)
-- **Discussions**: Use [GitHub Discussions](https://github.com/yourusername/software-engineering-career-paths/discussions)
+- **Problemas**: Usa [GitHub Issues](https://github.com/yourusername/software-engineering-career-paths/issues)
+- **Discusiones**: Usa [GitHub Discussions](https://github.com/yourusername/software-engineering-career-paths/discussions)
 - **Email**: your-email@example.com
 
-## 🙏 Acknowledgments
+## 🙏 Agradecimientos
 
-- **Industry Research**: Based on analysis of career ladders at leading technology companies
-- **Tailwind CSS**: For the excellent utility-first CSS framework
-- **Chart.js**: For interactive data visualization
-- **Contributors**: Everyone who helps improve this tool
+- **Investigación de la Industria**: Basado en análisis de escaleras de carrera en empresas tecnológicas líderes
+- **Tailwind CSS**: Por el excelente framework CSS utility-first
+- **Chart.js**: Por la visualización interactiva de datos
+- **Contribuidores**: Todos los que ayudan a mejorar esta herramienta
 
-## 📈 Roadmap
+## 📈 Hoja de Ruta
 
-- [ ] Add more company career ladder comparisons
-- [ ] Implement interactive career assessment quiz
-- [ ] Add skill gap analysis tools
-- [ ] Create mentorship matching system
-- [ ] Add international career path variations
-- [ ] Integrate with job market data
-- [ ] Add career transition guides
-- [ ] Create downloadable career planning templates
+- [ ] Agregar más comparaciones de escaleras de carrera de empresas
+- [ ] Implementar cuestionario interactivo de evaluación de carrera
+- [ ] Agregar herramientas de análisis de brechas de habilidades
+- [ ] Crear sistema de emparejamiento de mentores
+- [ ] Agregar variaciones internacionales de rutas de carrera
+- [ ] Integrar con datos del mercado laboral
+- [ ] Agregar guías de transición de carrera
+- [ ] Crear plantillas descargables de planificación de carrera
 
-## 📊 Data Sources
+## 📊 Fuentes de Datos
 
-The career path information and compensation data in this infographic is based on:
-- **Company Career Ladders**: Google, Meta, and other leading tech companies
-- **Industry Reports**: Software engineering salary surveys and career progression studies
-- **Professional Networks**: Insights from engineering leaders and career development experts
+La información de rutas de carrera y datos de compensación en esta infografía está basada en:
+- **Escaleras de Carrera de Empresas**: Google, Meta y otras empresas tecnológicas líderes
+- **Reportes de la Industria**: Encuestas salariales de ingeniería de software y estudios de progresión de carrera
+- **Redes Profesionales**: Información de líderes de ingeniería y expertos en desarrollo de carrera
 
-*Note: All data represents industry averages and is for illustrative purposes. Actual compensation and career progression may vary significantly by company, location, and individual circumstances.*
+*Nota: Todos los datos representan promedios de la industria y son para propósitos ilustrativos. La compensación real y progresión de carrera pueden variar significativamente por empresa, ubicación y circunstancias individuales.*
 
 ---
 
-**Made with ❤️ for the software engineering community**
+**Hecho con ❤️ para la comunidad de ingeniería de software**
 
-*Last updated: December 2024*
+*Última actualización: Diciembre 2024*
